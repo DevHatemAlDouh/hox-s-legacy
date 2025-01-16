@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
+const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
 @export var Player_Assist: AnimatedSprite2D
 @export var animations: AnimationTree
@@ -10,6 +10,9 @@ var CombatMode = false
 
 
 func Update_Animation_Parameters():
+	if Input.is_action_just_pressed("death"):
+		animations["parameters/conditions/Death"] = true
+		animations["parameters/conditions/Idel"] = false
 	if Input.is_action_just_pressed("combat") && !CombatMode:
 		animations["parameters/conditions/To_Combat"] = true
 		animations["parameters/conditions/Out_Combat"] = false
@@ -22,7 +25,7 @@ func Update_Animation_Parameters():
 		CombatMode = !CombatMode
 	if !CombatMode:
 		
-		if velocity == Vector2.ZERO:
+		if velocity.x == 0:
 			animations["parameters/conditions/Idel"] = true
 			animations["parameters/conditions/Is_moving"] = false
 		else:
@@ -30,7 +33,7 @@ func Update_Animation_Parameters():
 			animations["parameters/conditions/Is_moving"] = true
 	else:
 		
-		if velocity == Vector2.ZERO:
+		if velocity.x == 0:
 			animations["parameters/conditions/Ready_Idel"] = true
 			animations["parameters/conditions/Ready_Is_moving"] = false
 		else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://5umka2q12isx"]
+[gd_scene load_steps=20 format=4 uid="uid://5umka2q12isx"]
 
 [ext_resource type="Texture2D" uid="uid://nxapp3fwc28q" path="res://Assists/backgraend/wall2.png" id="1_5f7vh"]
 [ext_resource type="Texture2D" uid="uid://dokx8oednhf53" path="res://Assists/backgraend/pillar.png" id="2_snaab"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b1520721jyt0u" path="res://World/lantern_2.tscn" id="5_ye25t"]
 [ext_resource type="PackedScene" uid="uid://bmrf2t0baugs7" path="res://World/chain.tscn" id="6_wpdr7"]
 [ext_resource type="PackedScene" uid="uid://bl56j3otjru8u" path="res://Player/player.tscn" id="7_jiso0"]
+[ext_resource type="PackedScene" uid="uid://boan55xogjeoj" path="res://Enemies/001/001.tscn" id="7_nf8w6"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kjiq5"]
 polygon = PackedVector2Array(-224, 0, 1184, 0, 1184, -224, -32, -224, -32, -192, -224, -192)
@@ -385,6 +386,9 @@ position = Vector2(912, -80)
 
 [node name="Lantern5" parent="lights" instance=ExtResource("5_ye25t")]
 position = Vector2(240, -128)
+
+[node name="001" parent="lights" instance=ExtResource("7_nf8w6")]
+position = Vector2(104, -8)
 
 [node name="Chains" type="Node2D" parent="."]
 
