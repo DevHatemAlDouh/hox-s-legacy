@@ -1,34 +1,79 @@
-[gd_scene load_steps=6 format=3 uid="uid://boan55xogjeoj"]
+[gd_scene load_steps=11 format=3 uid="uid://boan55xogjeoj"]
 
 [ext_resource type="Script" path="res://Enemies/001/001.gd" id="1_15y8m"]
-[ext_resource type="Texture2D" uid="uid://5cv6mih5svuo" path="res://Enemies/001/Assists/001Idel.png" id="1_odmlm"]
+[ext_resource type="Texture2D" uid="uid://bf535epqtlnbu" path="res://Enemies/001/Drow/001Idel.png" id="2_71dxe"]
+[ext_resource type="Script" path="res://Components/health.gd" id="2_ttk1f"]
+[ext_resource type="Script" path="res://Components/hitbox.gd" id="4_q7co2"]
+[ext_resource type="Script" path="res://Components/hurtbox.gd" id="5_8e7xt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hhyj3"]
-atlas = ExtResource("1_odmlm")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4lxl"]
+atlas = ExtResource("2_71dxe")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqh5r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hhyj3")
+"texture": SubResource("AtlasTexture_u4lxl")
 }],
 "loop": true,
 "name": &"Idel",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwhp1"]
-size = Vector2(48, 104)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rdj47"]
+size = Vector2(9, 101)
 
-[node name="001" type="CharacterBody2D" groups=["Enemie"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wihi"]
+size = Vector2(48, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwhp1"]
+size = Vector2(48, 102)
+
+[node name="001" type="CharacterBody2D"]
 script = ExtResource("1_15y8m")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_ttk1f")
+max_health = 1500
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_eqh5r")
 animation = &"Idel"
+flip_h = true
+
+[node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(0, 64)
+collision_mask = 0
+script = ExtResource("4_q7co2")
+damage = 300
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
+position = Vector2(24, -51)
+shape = SubResource("RectangleShape2D_rdj47")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="HutrBox" type="Area2D" parent="AnimatedSprite2D" node_paths=PackedStringArray("health")]
+collision_layer = 0
+collision_mask = 14
+script = ExtResource("5_8e7xt")
+health = NodePath("../../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HutrBox"]
+position = Vector2(0, 13)
+shape = SubResource("RectangleShape2D_0wihi")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="RayCast2D" type="RayCast2D" parent="AnimatedSprite2D"]
+target_position = Vector2(50, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -52)
+position = Vector2(0, -51)
 shape = SubResource("RectangleShape2D_mwhp1")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

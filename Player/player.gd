@@ -7,12 +7,18 @@ const JUMP_VELOCITY = -400.0
 @export var animations: AnimationTree
 @export var Footsteps_VFX :AudioStreamPlayer2D
 var CombatMode = false
+var death = false 
 
 
 func Update_Animation_Parameters():
-	if Input.is_action_just_pressed("death"):
-		animations["parameters/conditions/Death"] = true
+	if Input.is_action_just_pressed("death") || death:
+		if CombatMode:
+			animations["parameters/conditions/To_Combat"] = false
+			animations["parameters/conditions/Out_Combat"] = true
+			animations["parameters/conditions/Ready_Idel"] = false
 		animations["parameters/conditions/Idel"] = false
+		animations["parameters/conditions/Death"] = true
+		death = true
 	if Input.is_action_just_pressed("combat") && !CombatMode:
 		animations["parameters/conditions/To_Combat"] = true
 		animations["parameters/conditions/Out_Combat"] = false
@@ -32,7 +38,6 @@ func Update_Animation_Parameters():
 			animations["parameters/conditions/Idel"] = false
 			animations["parameters/conditions/Is_moving"] = true
 	else:
-		
 		if velocity.x == 0:
 			animations["parameters/conditions/Ready_Idel"] = true
 			animations["parameters/conditions/Ready_Is_moving"] = false
@@ -48,13 +53,13 @@ func _physics_process(delta: float) -> void:
 	
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() && !death:
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("left", "right")
-	if direction:
+	if direction && !death:
 		#loking at laft or right
 		if direction > 0:
 			Player_Assist.flip_h = false
@@ -65,3 +70,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_health_health_depleted() -> void:
+	death = true
