@@ -11,39 +11,18 @@ var death = false
 
 
 func Update_Animation_Parameters():
-	if Input.is_action_just_pressed("death") || death:
-		if CombatMode:
-			animations["parameters/conditions/To_Combat"] = false
-			animations["parameters/conditions/Out_Combat"] = true
-			animations["parameters/conditions/Ready_Idel"] = false
+	if death:
+		animations["parameters/conditions/Is_Moving"] = false
 		animations["parameters/conditions/Idel"] = false
 		animations["parameters/conditions/Death"] = true
-		death = true
-	if Input.is_action_just_pressed("combat") && !CombatMode:
-		animations["parameters/conditions/To_Combat"] = true
-		animations["parameters/conditions/Out_Combat"] = false
-		animations["parameters/conditions/Idel"] = false
-		CombatMode = !CombatMode
-	elif Input.is_action_just_pressed("combat") && CombatMode:
-		animations["parameters/conditions/To_Combat"] = false
-		animations["parameters/conditions/Out_Combat"] = true
-		animations["parameters/conditions/Ready_Idel"] = false
-		CombatMode = !CombatMode
-	if !CombatMode:
-		
-		if velocity.x == 0:
-			animations["parameters/conditions/Idel"] = true
-			animations["parameters/conditions/Is_moving"] = false
-		else:
-			animations["parameters/conditions/Idel"] = false
-			animations["parameters/conditions/Is_moving"] = true
 	else:
 		if velocity.x == 0:
-			animations["parameters/conditions/Ready_Idel"] = true
-			animations["parameters/conditions/Ready_Is_moving"] = false
+			animations["parameters/conditions/Idel"] = true
+			animations["parameters/conditions/Is_Moving"] = false
 		else:
-			animations["parameters/conditions/Ready_Idel"] = false
-			animations["parameters/conditions/Ready_Is_moving"] = true
+			animations["parameters/conditions/Idel"] = false
+			animations["parameters/conditions/Is_Moving"] = true
+	
 
 func _physics_process(delta: float) -> void:
 	Update_Animation_Parameters()
@@ -74,3 +53,13 @@ func _physics_process(delta: float) -> void:
 
 func _on_health_health_depleted() -> void:
 	death = true
+
+
+func _on_enemyditction_area_entered(area: Area2D) -> void:
+	if area is HitBox:
+		CombatMode = true
+
+
+func _on_enemyditction_area_exited(area: Area2D) -> void:
+	if area is HitBox:
+		CombatMode = false
