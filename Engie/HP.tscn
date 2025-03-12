@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dvsxp8t7lvrmf"]
 
-[ext_resource type="Script" path="res://Engie/hp.gd" id="1_hunap"]
+[ext_resource type="Script" uid="uid://dlo0eobjpi5v8" path="res://Engie/hp.gd" id="1_hunap"]
 
 [node name="Hp" type="Node2D"]
 script = ExtResource("1_hunap")

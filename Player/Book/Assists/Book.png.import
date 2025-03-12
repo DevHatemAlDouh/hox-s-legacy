@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxiy4uubjoqff"
-path="res://.godot/imported/001Idel.png-9630088d0c3be251bb2fc580849ec1a0.ctex"
+uid="uid://vxjciajyv0mv"
+path="res://.godot/imported/Book.png-a95386f0286b2d625ed61535d5d29f36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/001/Drow/001Idel.png"
-dest_files=["res://.godot/imported/001Idel.png-9630088d0c3be251bb2fc580849ec1a0.ctex"]
+source_file="res://Player/Book/Assists/Book.png"
+dest_files=["res://.godot/imported/Book.png-a95386f0286b2d625ed61535d5d29f36.ctex"]
 
 [params]
 

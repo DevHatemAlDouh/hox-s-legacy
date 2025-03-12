@@ -1,13 +1,14 @@
-[gd_scene load_steps=47 format=3 uid="uid://bl56j3otjru8u"]
+[gd_scene load_steps=48 format=3 uid="uid://bl56j3otjru8u"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_yhfnr"]
+[ext_resource type="Script" uid="uid://v8gltyylxq2m" path="res://Player/player.gd" id="1_yhfnr"]
 [ext_resource type="Texture2D" uid="uid://30pma2vjdgen" path="res://Player/Assists/Ready3.0.png" id="3_5joss"]
 [ext_resource type="Texture2D" uid="uid://d0cxethkxkulp" path="res://Player/Assists/Ready_idel3.0.png" id="4_gk1hx"]
 [ext_resource type="Texture2D" uid="uid://pq8edpunb1w8" path="res://Player/Assists/Ready_walk4.0.png" id="5_eao42"]
 [ext_resource type="Texture2D" uid="uid://cw2dw4nd34xpu" path="res://Player/Assists/Death4.0.png" id="7_7bo0c"]
 [ext_resource type="AudioStream" uid="uid://c6s7nvcaic02i" path="res://Player/VFX's/Footsteps.mp3" id="7_fk0ue"]
-[ext_resource type="Script" path="res://Components/health.gd" id="9_8myxi"]
-[ext_resource type="Script" path="res://Components/hurtbox.gd" id="9_28kmr"]
+[ext_resource type="PackedScene" uid="uid://cke5s2dkmdu0v" path="res://Player/Book/book.tscn" id="9_00tjw"]
+[ext_resource type="Script" uid="uid://tscn7y28rhmh" path="res://Components/health.gd" id="9_8myxi"]
+[ext_resource type="Script" uid="uid://dt2xrxrn812gc" path="res://Components/hurtbox.gd" id="9_28kmr"]
 
 [sub_resource type="Animation" id="Animation_3m12v"]
 resource_name = "Death"
@@ -154,11 +155,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnnkx"]
 _data = {
-"Death": SubResource("Animation_3m12v"),
-"Idel": SubResource("Animation_qhtfr"),
-"RESET": SubResource("Animation_ketm8"),
-"Ready": SubResource("Animation_kbsyy"),
-"Walk": SubResource("Animation_xxy5d")
+&"Death": SubResource("Animation_3m12v"),
+&"Idel": SubResource("Animation_qhtfr"),
+&"RESET": SubResource("Animation_ketm8"),
+&"Ready": SubResource("Animation_kbsyy"),
+&"Walk": SubResource("Animation_xxy5d")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n3knk"]
@@ -372,11 +373,14 @@ size = Vector2(32, 90)
 [sub_resource type="CircleShape2D" id="CircleShape2D_l44yb"]
 radius = 300.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Player_Assist", "animations") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("BOOK", "Player_Assist", "animations", "Footsteps_VFX", "Ground_detector") groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_yhfnr")
+BOOK = NodePath("Book")
 Player_Assist = NodePath("AnimatedSprite2D")
 animations = NodePath("AnimationTree")
+Footsteps_VFX = NodePath("Footsteps")
+Ground_detector = NodePath("Ground_detector")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("9_8myxi")
@@ -384,7 +388,7 @@ max_health = 300
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_tnnkx")
+&"": SubResource("AnimationLibrary_tnnkx")
 }
 
 [node name="World_Collision" type="CollisionShape2D" parent="."]
@@ -407,12 +411,12 @@ parameters/conditions/Is_Moving = false
 stream = ExtResource("7_fk0ue")
 bus = &"VFX"
 
-[node name="HutrBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 collision_layer = 0
 script = ExtResource("9_28kmr")
 health = NodePath("../Health")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HutrBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -61)
 shape = SubResource("RectangleShape2D_qcg84")
 debug_color = Color(1, 0, 0, 0.419608)
@@ -421,6 +425,15 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemyditction"]
 shape = SubResource("CircleShape2D_l44yb")
+
+[node name="can_jump" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Ground_detector" type="RayCast2D" parent="."]
+target_position = Vector2(0, 10)
+
+[node name="Book" parent="." instance=ExtResource("9_00tjw")]
+position = Vector2(33, -86)
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="area_entered" from="enemyditction" to="." method="_on_enemyditction_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://5umka2q12isx"]
+[gd_scene load_steps=21 format=4 uid="uid://5umka2q12isx"]
 
 [ext_resource type="Texture2D" uid="uid://nxapp3fwc28q" path="res://Assists/backgraend/wall2.png" id="1_5f7vh"]
 [ext_resource type="Texture2D" uid="uid://dokx8oednhf53" path="res://Assists/backgraend/pillar.png" id="2_snaab"]
@@ -319,6 +319,9 @@ terrain_set_0/terrain_1/color = Color(0.215686, 0.0705882, 0.0705882, 1)
 sources/1 = SubResource("TileSetAtlasSource_w0kjx")
 sources/2 = SubResource("TileSetAtlasSource_q60qv")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x7j30"]
+size = Vector2(416, 130)
+
 [node name="Level1" type="Node2D"]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -404,14 +407,12 @@ position = Vector2(688, -80)
 [node name="Chain5" parent="Chains" instance=ExtResource("6_wpdr7")]
 position = Vector2(880, -120)
 
-[node name="001" parent="." instance=ExtResource("7_nf8w6")]
-position = Vector2(16, -24)
-
 [node name="Player" parent="." instance=ExtResource("7_jiso0")]
-position = Vector2(712, -16)
+position = Vector2(664, -16)
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
 position = Vector2(-56, -32)
+zoom = Vector2(0.5, 0.5)
 limit_left = -250
 limit_right = 1200
 position_smoothing_speed = 4.0
@@ -420,3 +421,16 @@ drag_vertical_enabled = true
 drag_left_margin = 0.5
 drag_top_margin = 0.5
 drag_right_margin = 0.5
+
+[node name="001" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_nf8w6")]
+position = Vector2(30, -8)
+platform_floor_layers = 4294967293
+player = NodePath("../Player")
+
+[node name="002" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_nf8w6")]
+position = Vector2(60, -16)
+player = NodePath("../Player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, -56)
+shape = SubResource("RectangleShape2D_x7j30")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmf6gmgrxu564"]
 
 [ext_resource type="Texture2D" uid="uid://p0ajglt63cv3" path="res://Assists/backgraend/lantern1.png" id="1_na486"]
-[ext_resource type="Script" path="res://World/lantern_1.gd" id="1_qtfus"]
+[ext_resource type="Script" uid="uid://5kuc8j5ybqa6" path="res://World/lantern_1.gd" id="1_qtfus"]
 
 [sub_resource type="Gradient" id="Gradient_yi3ii"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -45,7 +45,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8rsep"]
 _data = {
-"RESET": SubResource("Animation_nqdoi")
+&"RESET": SubResource("Animation_nqdoi")
 }
 
 [node name="Lantern1" type="Node2D"]

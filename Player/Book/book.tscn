@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cke5s2dkmdu0v"]
+
+[ext_resource type="Texture2D" uid="uid://vxjciajyv0mv" path="res://Player/Book/Assists/Book.png" id="1_udmpu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ciqj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_udmpu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Book" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ciqj5")
