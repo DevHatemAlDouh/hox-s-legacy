@@ -1,18 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://boan55xogjeoj"]
+[gd_scene load_steps=12 format=3 uid="uid://boan55xogjeoj"]
 
 [ext_resource type="Script" uid="uid://bid8c0nhoouan" path="res://Enemies/001/001.gd" id="1_15y8m"]
 [ext_resource type="Script" uid="uid://tscn7y28rhmh" path="res://Components/health.gd" id="2_ttk1f"]
+[ext_resource type="Texture2D" uid="uid://5cv6mih5svuo" path="res://Enemies/001/Assists/001Idel.png" id="3_weupa"]
 [ext_resource type="Script" uid="uid://o0og1idrbini" path="res://Components/hitbox.gd" id="4_q7co2"]
 [ext_resource type="Script" uid="uid://dt2xrxrn812gc" path="res://Components/hurtbox.gd" id="5_8e7xt"]
+[ext_resource type="PackedScene" uid="uid://b4pfyhjrryyy1" path="res://Components/target.tscn" id="5_ggo1v"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u4lxl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sfoo"]
+atlas = ExtResource("3_weupa")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqh5r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u4lxl")
+"texture": SubResource("AtlasTexture_6sfoo")
 }],
 "loop": true,
 "name": &"Idel",
@@ -30,6 +33,7 @@ size = Vector2(48, 102)
 
 [node name="001" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_15y8m")
 
 [node name="Health" type="Node" parent="."]
@@ -85,6 +89,10 @@ offset_left = -24.0
 offset_top = -128.0
 offset_right = 24.0
 offset_bottom = -104.0
+
+[node name="Target" parent="." instance=ExtResource("5_ggo1v")]
+visible = false
+position = Vector2(0, -56)
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

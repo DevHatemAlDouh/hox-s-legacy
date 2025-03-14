@@ -37,10 +37,9 @@ func _physics_process(delta: float) -> void:
 	else :
 		$Label.text = 'CHASE'
 	handle_gravity(delta)
-	handle_movment(delta)
+	#handle_movment(delta)
 	change_direction()
 	lock_for_player()
-
 
 func lock_for_player():
 	if PlayerDetector.is_colliding():

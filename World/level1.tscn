@@ -407,6 +407,10 @@ position = Vector2(688, -80)
 [node name="Chain5" parent="Chains" instance=ExtResource("6_wpdr7")]
 position = Vector2(880, -120)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, -56)
+shape = SubResource("RectangleShape2D_x7j30")
+
 [node name="Player" parent="." instance=ExtResource("7_jiso0")]
 position = Vector2(664, -16)
 
@@ -428,9 +432,5 @@ platform_floor_layers = 4294967293
 player = NodePath("../Player")
 
 [node name="002" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_nf8w6")]
-position = Vector2(60, -16)
+position = Vector2(136, -8)
 player = NodePath("../Player")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(32, -56)
-shape = SubResource("RectangleShape2D_x7j30")
