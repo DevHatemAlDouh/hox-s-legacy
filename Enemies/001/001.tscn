@@ -31,10 +31,11 @@ size = Vector2(48, 102)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwhp1"]
 size = Vector2(48, 102)
 
-[node name="001" type="CharacterBody2D"]
-collision_layer = 2
+[node name="001" type="CharacterBody2D" node_paths=PackedStringArray("Target") groups=["Enemys"]]
+collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_15y8m")
+Target = NodePath("Target")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_ttk1f")
@@ -69,6 +70,7 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="PlayerDetector" type="RayCast2D" parent="AnimatedSprite2D"]
 target_position = Vector2(100, 0)
+collision_mask = 2
 
 [node name="Ground_detector" type="Node2D" parent="AnimatedSprite2D"]
 
@@ -81,7 +83,7 @@ position = Vector2(0, -51)
 shape = SubResource("RectangleShape2D_mwhp1")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 3.0
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
@@ -91,7 +93,6 @@ offset_right = 24.0
 offset_bottom = -104.0
 
 [node name="Target" parent="." instance=ExtResource("5_ggo1v")]
-visible = false
 position = Vector2(0, -56)
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

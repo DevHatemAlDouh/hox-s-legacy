@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 
 
-@export var player: CharacterBody2D
 @export var SPEED: int = 50
 @export var CHASE_SPEED: int = 120
 @export var ACCELERATION: int = 200
+@export var Target: Node2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var PlayerDetector: RayCast2D = $AnimatedSprite2D/PlayerDetector
@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var GroundDetector: RayCast2D = $AnimatedSprite2D/Ground_detector/RayCast2D2
 @onready var timer = $Timer
 
+var Player: CharacterBody2D
 var gravity: float = 10000
 var direction: Vector2
 var rigth_bounds:Vector2
@@ -30,21 +31,21 @@ func _ready() -> void:
 	left_bounds = self.position + Vector2(-200,0)
 	rigth_bounds = self.position + Vector2(200,0)
 
-
 func _physics_process(delta: float) -> void:
 	if currnt_state == States.WANDER:
 		$Label.text = 'WANDER'
 	else :
 		$Label.text = 'CHASE'
 	handle_gravity(delta)
-	#handle_movment(delta)
+	handle_movment(delta)
 	change_direction()
 	lock_for_player()
 
 func lock_for_player():
 	if PlayerDetector.is_colliding():
 		var collider = PlayerDetector.get_collider()
-		if collider == player:
+		if collider.is_in_group("player"):
+			Player = collider
 			chase_player()
 		elif currnt_state == States.CHASE:
 			stop_chase()
@@ -58,6 +59,9 @@ func chase_player() -> void:
 func stop_chase() -> void:
 	if timer.time_left <= 0:
 		timer.start()
+
+func Targeted(targeted :bool)-> void:
+	Target.Targeted(targeted)
 
 func handle_movment(delta: float) -> void:
 	if currnt_state == States.WANDER:
@@ -85,7 +89,7 @@ func change_direction() -> void:
 				PlayerDetector.target_position = Vector2(-100,0)
 				DamegIndecater.position = Vector2(-24,-51)
 	elif currnt_state == States.CHASE:
-		direction = (player.position - self.position).normalized()
+		direction = (Player.position - self.position).normalized()
 		direction = sign(direction)
 		if GroundDetector.is_colliding():
 			if direction.x == 1:
@@ -107,7 +111,6 @@ func handle_gravity(delta: float) -> void:
 
 func _on_health_health_depleted() -> void:
 	queue_free()
-
 
 func _on_timer_timeout() -> void:
 	currnt_state = States.WANDER

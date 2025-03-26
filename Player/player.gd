@@ -9,6 +9,7 @@ const JUMP_VELOCITY_LOW = -100.0
 @export var Player_Assist: AnimatedSprite2D
 @export var animations: AnimationTree
 @export var Footsteps_VFX :AudioStreamPlayer2D
+@export var land :RayCast2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var delta_time: float = 0.0
 
@@ -24,8 +25,7 @@ var DEATH = false
 var CombatMode = false
 var LockOn = false
 var targeted_enemy : Node2D
-var enemy_distance = 0
-var all_enemys_can_by_targeted = []
+var all_enemys_that_can_by_targeted = {}
 
 
 enum Player_States{
@@ -33,6 +33,7 @@ enum Player_States{
 	WALKS,
 	JUMPS,
 	FALLING,
+	LANDING,
 	DEATH
 }
 
@@ -49,13 +50,11 @@ func Update_Animation_Parameters():
 	else:
 		if currnt_state == Player_States.IDEL:
 			$Label.text = "IDEL"
-			animations["parameters/conditions/Jump"] = false
 			animations["parameters/conditions/Fall"] = false
 			animations["parameters/conditions/Idel"] = true
 			animations["parameters/conditions/Is_Moving"] = false
 		if currnt_state == Player_States.WALKS :
 			$Label.text = "WALKS"
-			animations["parameters/conditions/Jump"] = false
 			animations["parameters/conditions/Fall"] = false
 			animations["parameters/conditions/Idel"] = false
 			animations["parameters/conditions/Is_Moving"] = true
@@ -63,14 +62,15 @@ func Update_Animation_Parameters():
 			$Label.text = "JUMPS"
 			animations["parameters/conditions/Idel"] = false
 			animations["parameters/conditions/Is_Moving"] = false
-			animations["parameters/conditions/Fall"] = false
 			animations["parameters/conditions/Jump"] = true
 		if currnt_state == Player_States.FALLING:
 			$Label.text = "FALLING"
-			animations["parameters/conditions/Idel"] = false
-			animations["parameters/conditions/Is_Moving"] = false
 			animations["parameters/conditions/Jump"] = false
 			animations["parameters/conditions/Fall"] = true
+		if currnt_state == Player_States.LANDING:
+			$Label.text = "LANDING"
+			animations["parameters/conditions/Fall"] = false
+			animations["parameters/conditions/Land"] = true
 
 func handle_gravity(delta: float) -> void:
 	velocity.y += gravity * delta
@@ -107,33 +107,27 @@ func handle_hold_jumping(delta: float) -> void:
 		is_holding = false
 		is_jumping = false
 
+func enemys_pos() -> void:
+	for enemy in all_enemys_that_can_by_targeted:
+		all_enemys_that_can_by_targeted[enemy] = self.global_position.distance_to(enemy.global_position)
+
 func target(EnmyInRange : bool) -> void:
+	enemys_pos()
 	if EnmyInRange:
-		for enemy in all_enemys_can_by_targeted:
-			var enemy_pos = enemy.global_position 
-			var distance = self.position.distance_to(enemy_pos)
-			if enemy_distance > 0:
-				if enemy_distance > distance:
-					targeted_enemy = enemy
-					enemy_distance = distance
-			else :
-				enemy_distance = distance
-	else :
-		enemy_distance = 0
+		targeted_enemy = all_enemys_that_can_by_targeted.find_key(all_enemys_that_can_by_targeted.values().pick_random())
 
 func _physics_process(delta: float) -> void:
 	delta_time = delta
 	if DEATH:
 		currnt_state = Player_States.DEATH
 	Update_Animation_Parameters()
-	CombatMode = all_enemys_can_by_targeted.size() > 0
+	CombatMode = all_enemys_that_can_by_targeted.size() > 0
 	target(CombatMode)
-	if !CombatMode:
-		LockOn = CombatMode
 	# target 
 	if Input.is_action_just_pressed("target") and CombatMode:
-		targeted_enemy.get_child(-1).visible = !LockOn
-		LockOn = !LockOn
+		for enemy in all_enemys_that_can_by_targeted:
+			enemy.Targeted(false)
+		targeted_enemy.Targeted(true)
 	# Handle movement
 	var direction := Input.get_axis("left", "right")
 	handle_movement(direction)
@@ -143,6 +137,8 @@ func _physics_process(delta: float) -> void:
 		handle_gravity(delta)
 		if !is_holding:
 			currnt_state = Player_States.FALLING
+		if land.is_colliding():
+			currnt_state = Player_States.LANDING
 	# jump handler
 	if !DEATH:
 		if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -158,13 +154,15 @@ func _physics_process(delta: float) -> void:
 func _on_health_health_depleted() -> void:
 	DEATH = true
 
-func _on_enemyditction_area_entered(area: Area2D) -> void:
-	if area is HitBox:
-		var enemy = area.get_parent().get_parent()
-		all_enemys_can_by_targeted.append(enemy)
 
-func _on_enemyditction_area_exited(area: Area2D) -> void:
-	if area is HitBox:
-		var enemy = area.get_parent().get_parent()
-		enemy.get_child(-1).visible = false
-		all_enemys_can_by_targeted.erase(enemy)
+func _on_enemyditction_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Enemys"):
+		var enemy = body
+		all_enemys_that_can_by_targeted.set(enemy,0.0)
+
+
+func _on_enemyditction_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Enemys"):
+		var enemy = body
+		enemy.Targeted(false)
+		all_enemys_that_can_by_targeted.erase(enemy)
