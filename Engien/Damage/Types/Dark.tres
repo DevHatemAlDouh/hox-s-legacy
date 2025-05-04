@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Damage_Type" load_steps=2 format=3 uid="uid://j0hsoblt3ub7"]
+
+[ext_resource type="Script" uid="uid://b6apoic0wgkf7" path="res://Engien/Damage/Damage_Types.gd" id="1_5uobm"]
+
+[resource]
+script = ExtResource("1_5uobm")
+Damage_Name = "Dark"
+metadata/_custom_type_script = "uid://b6apoic0wgkf7"

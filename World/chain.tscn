@@ -37,7 +37,7 @@ hframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_inebt")
+&"": SubResource("AnimationLibrary_inebt")
 }
 
 [node name="SVX" type="AudioStreamPlayer2D" parent="."]

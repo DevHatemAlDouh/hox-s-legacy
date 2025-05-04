@@ -93,12 +93,14 @@ func handle_movement(direction: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 func handle_normal_jumping() -> void:
+	currnt_state = Player_States.JUMPS
 	velocity.y = JUMP_VELOCITY_LOW
 	press_time = 0.0
 	is_holding = true
 	is_jumping = true
 
 func handle_hold_jumping(delta: float) -> void:
+	currnt_state = Player_States.JUMPS
 	press_time += delta
 	if press_time < HOLD_THRESHOLD:
 		velocity.y = lerp(JUMP_VELOCITY_LOW, JUMP_VELOCITY_HIGH, press_time/HOLD_THRESHOLD)
@@ -133,7 +135,6 @@ func _physics_process(delta: float) -> void:
 	handle_movement(direction)
 	# Add the gravity.
 	if not is_on_floor():
-		currnt_state = Player_States.JUMPS
 		handle_gravity(delta)
 		if !is_holding:
 			currnt_state = Player_States.FALLING

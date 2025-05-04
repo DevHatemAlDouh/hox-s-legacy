@@ -480,7 +480,7 @@ states/Death/node = SubResource("AnimationNodeAnimation_8q5ts")
 states/Death/position = Vector2(724, 99.8477)
 states/End/position = Vector2(900.5, 99.9353)
 states/Falling/node = SubResource("AnimationNodeAnimation_apopc")
-states/Falling/position = Vector2(818.5, 345.816)
+states/Falling/position = Vector2(818.5, 344.816)
 states/Idel/node = SubResource("AnimationNodeAnimation_ry6e1")
 states/Idel/position = Vector2(365.824, 99.4864)
 states/Jump/node = SubResource("AnimationNodeAnimation_x3vf3")
@@ -491,7 +491,7 @@ states/Start/position = Vector2(203.5, 100.047)
 states/Walk/node = SubResource("AnimationNodeAnimation_6h3cg")
 states/Walk/position = Vector2(365.891, 258.816)
 transitions = ["Idel", "Walk", SubResource("AnimationNodeStateMachineTransition_gtev2"), "Walk", "Idel", SubResource("AnimationNodeStateMachineTransition_115g0"), "Start", "Idel", SubResource("AnimationNodeStateMachineTransition_sgle6"), "Idel", "Ready", SubResource("AnimationNodeStateMachineTransition_yji1w"), "Ready", "Death", SubResource("AnimationNodeStateMachineTransition_dh6xb"), "Walk", "Ready", SubResource("AnimationNodeStateMachineTransition_fxsxe"), "Idel", "Jump", SubResource("AnimationNodeStateMachineTransition_gu6f8"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_dkpta"), "Falling", "Idel", SubResource("AnimationNodeStateMachineTransition_x3vf3"), "Jump", "Ready", SubResource("AnimationNodeStateMachineTransition_apopc"), "Falling", "Ready", SubResource("AnimationNodeStateMachineTransition_5htga"), "Jump", "Falling", SubResource("AnimationNodeStateMachineTransition_p5o4e"), "Idel", "Falling", SubResource("AnimationNodeStateMachineTransition_lfmf2"), "Walk", "Falling", SubResource("AnimationNodeStateMachineTransition_pisgm")]
-graph_offset = Vector2(204, 173)
+graph_offset = Vector2(76, 67)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcg84"]
 size = Vector2(32, 90)

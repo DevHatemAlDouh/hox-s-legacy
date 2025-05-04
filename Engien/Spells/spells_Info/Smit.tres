@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://bp13qp0co7gcv"]
+
+[ext_resource type="Script" uid="uid://b6apoic0wgkf7" path="res://Engien/Damage/Damage_Types.gd" id="1_2kjul"]
+[ext_resource type="Resource" uid="uid://4fpxyxysy12e" path="res://Engien/Damage/Types/Lightning.tres" id="2_46inp"]
+[ext_resource type="Texture2D" uid="uid://2hcq8scgbnkh" path="res://Engien/Spells/Icons/Textures/Smit.png" id="3_cvbku"]
+[ext_resource type="Script" uid="uid://d0ciif7c8i87t" path="res://Engien/Spells/Spell.gd" id="4_f0fgb"]
+
+[resource]
+script = ExtResource("4_f0fgb")
+Name = "Smit"
+icon = ExtResource("3_cvbku")
+Damage = 50
+damage_Type = Array[ExtResource("1_2kjul")]([ExtResource("2_46inp")])
+metadata/_custom_type_script = "uid://d0ciif7c8i87t"

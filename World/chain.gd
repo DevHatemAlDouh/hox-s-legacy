@@ -9,7 +9,7 @@ func _process(_delta: float) -> void:
 		Move = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	
+	print(body)
 	if body.is_in_group("player") && !Move:
 		$AnimationPlayer.play("RESET")
 		$SVX.play()
