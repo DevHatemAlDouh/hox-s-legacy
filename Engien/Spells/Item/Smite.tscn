@@ -1,16 +1,16 @@
 [gd_scene load_steps=9 format=3 uid="uid://ctuc7ig6fwevg"]
 
-[ext_resource type="Script" uid="uid://1t6qj7nka2v7" path="res://Engien/Spells/Item/smite.gd" id="1_nwy2e"]
+[ext_resource type="Script" uid="uid://1t6qj7nka2v7" path="res://Engien/Spells/Item/Spells.gd" id="1_nwy2e"]
 [ext_resource type="Texture2D" uid="uid://2hcq8scgbnkh" path="res://Engien/Spells/Icons/Textures/Smit.png" id="1_qogt8"]
 [ext_resource type="Texture2D" uid="uid://c3a50wyd0nikj" path="res://Engien/Spells/Icons/Textures/paper.png" id="2_4u601"]
 [ext_resource type="PackedScene" uid="uid://c58avyihu5af" path="res://Engien/Partecals/Scenes/Glow.tscn" id="2_dhjdo"]
 [ext_resource type="Resource" uid="uid://bp13qp0co7gcv" path="res://Engien/Spells/spells_Info/Smit.tres" id="2_yad0m"]
 
-[sub_resource type="Gradient" id="Gradient_4u601"]
+[sub_resource type="Gradient" id="Gradient_hlfpm"]
 colors = PackedColorArray(1, 1, 1, 0.498039, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nwy2e"]
-gradient = SubResource("Gradient_4u601")
+gradient = SubResource("Gradient_hlfpm")
 width = 32
 height = 32
 use_hdr = true

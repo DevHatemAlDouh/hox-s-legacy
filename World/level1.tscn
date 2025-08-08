@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://5umka2q12isx"]
+[gd_scene load_steps=23 format=4 uid="uid://5umka2q12isx"]
 
 [ext_resource type="Texture2D" uid="uid://nxapp3fwc28q" path="res://Assists/backgraend/wall2.png" id="1_5f7vh"]
 [ext_resource type="Texture2D" uid="uid://dokx8oednhf53" path="res://Assists/backgraend/pillar.png" id="2_snaab"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://boan55xogjeoj" path="res://Enemies/001/001.tscn" id="7_nf8w6"]
 [ext_resource type="Script" uid="uid://ccefv3hbuuu3t" path="res://Engien/UI/camera.gd" id="9_22ly6"]
 [ext_resource type="PackedScene" uid="uid://ctuc7ig6fwevg" path="res://Engien/Spells/Item/Smite.tscn" id="11_mebpc"]
+[ext_resource type="PackedScene" uid="uid://cyduoiprq2h4c" path="res://Engien/Spells/Item/FireBall.tscn" id="12_22ly6"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kjiq5"]
 polygon = PackedVector2Array(-224, 0, 984, 0, 984, 48, 1096, 48, 1095.58, 0, 1184, 0, 1184, -424, 64, -416, 64, -192, -32, -192, -224, -192)
@@ -436,8 +437,8 @@ position = Vector2(136, -8)
 [node name="Smite2" parent="." instance=ExtResource("11_mebpc")]
 position = Vector2(1032, -112)
 
-[node name="Smite3" parent="." instance=ExtResource("11_mebpc")]
-position = Vector2(1136, -40)
+[node name="FireBall" parent="." instance=ExtResource("12_22ly6")]
+position = Vector2(840, -40)
 
-[node name="Smite4" parent="." instance=ExtResource("11_mebpc")]
-position = Vector2(832, -64)
+[node name="FireBall2" parent="." instance=ExtResource("12_22ly6")]
+position = Vector2(1144, -48)
