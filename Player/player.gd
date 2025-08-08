@@ -10,6 +10,9 @@ const JUMP_VELOCITY_LOW = -100.0
 @export var animations: AnimationTree
 @export var Footsteps_VFX :AudioStreamPlayer2D
 @export var land :RayCast2D
+@export var UI : CanvasLayer
+@export var Spell_Minu :Control
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var delta_time: float = 0.0
 
@@ -36,6 +39,8 @@ enum Player_States{
 	LANDING,
 	DEATH
 }
+
+var Book_Contiains : Array
 
 var currnt_state = Player_States.IDEL
 
@@ -81,15 +86,29 @@ func handle_book_placement(placement:bool):
 	else :
 		BOOK.position = Vector2(33,-86)
 
+func VFX():
+	if currnt_state == Player_States.IDEL:
+		Footsteps_VFX.stop()
+	if currnt_state == Player_States.WALKS:
+		if !Footsteps_VFX.playing:
+			Footsteps_VFX.play()
+
+func Spell_minu():
+	if Input.is_action_just_pressed("Spells"):
+		Spell_Minu.show()
+	elif Input.is_action_just_released("Spells"):
+		Spell_Minu.hide()
+
 func handle_movement(direction: float) -> void:
 	if direction != 0 and currnt_state != Player_States.DEATH:
 		currnt_state = Player_States.WALKS
 		Player_Assist.flip_h = direction < 0
 		handle_book_placement(direction < 0)
 		velocity.x = direction * SPEED
-		#Footsteps_VFX.play()
+		
 	else:
 		currnt_state = Player_States.IDEL
+		Footsteps_VFX.stop()
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 func handle_normal_jumping() -> void:
@@ -123,6 +142,8 @@ func _physics_process(delta: float) -> void:
 	if DEATH:
 		currnt_state = Player_States.DEATH
 	Update_Animation_Parameters()
+	VFX()
+	Spell_minu()
 	CombatMode = all_enemys_that_can_by_targeted.size() > 0
 	target(CombatMode)
 	# target 
@@ -155,15 +176,20 @@ func _physics_process(delta: float) -> void:
 func _on_health_health_depleted() -> void:
 	DEATH = true
 
-
 func _on_enemyditction_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemys"):
 		var enemy = body
 		all_enemys_that_can_by_targeted.set(enemy,0.0)
-
 
 func _on_enemyditction_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Enemys"):
 		var enemy = body
 		enemy.Targeted(false)
 		all_enemys_that_can_by_targeted.erase(enemy)
+
+func _on_itemditction_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Spells"):
+		var Spellinfo = area.get_Info()
+		Spell_Minu.ADD(Spellinfo)
+		UI.spell_slots(Spellinfo.get_Icon(),Spell_Minu.Size())
+		area.queue_free()

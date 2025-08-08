@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://5umka2q12isx"]
+[gd_scene load_steps=22 format=4 uid="uid://5umka2q12isx"]
 
 [ext_resource type="Texture2D" uid="uid://nxapp3fwc28q" path="res://Assists/backgraend/wall2.png" id="1_5f7vh"]
 [ext_resource type="Texture2D" uid="uid://dokx8oednhf53" path="res://Assists/backgraend/pillar.png" id="2_snaab"]
@@ -9,10 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://bmrf2t0baugs7" path="res://World/chain.tscn" id="6_wpdr7"]
 [ext_resource type="PackedScene" uid="uid://bl56j3otjru8u" path="res://Player/player.tscn" id="7_jiso0"]
 [ext_resource type="PackedScene" uid="uid://boan55xogjeoj" path="res://Enemies/001/001.tscn" id="7_nf8w6"]
-[ext_resource type="PackedScene" uid="uid://c58avyihu5af" path="res://Engien/Partecals/Scenes/Glow.tscn" id="10_0rsjy"]
+[ext_resource type="Script" uid="uid://ccefv3hbuuu3t" path="res://Engien/UI/camera.gd" id="9_22ly6"]
+[ext_resource type="PackedScene" uid="uid://ctuc7ig6fwevg" path="res://Engien/Spells/Item/Smite.tscn" id="11_mebpc"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kjiq5"]
-polygon = PackedVector2Array(-224, 0, 984, 0, 984, 48, 1096, 48, 1095.58, 0, 1184, 0, 1184, -224, -32, -224, -32, -192, -224, -192)
+polygon = PackedVector2Array(-224, 0, 984, 0, 984, 48, 1096, 48, 1095.58, 0, 1184, 0, 1184, -424, 64, -416, 64, -192, -32, -192, -224, -192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_maqfe"]
 resource_name = "Backgtawnd"
@@ -405,12 +406,12 @@ position = Vector2(688, -80)
 [node name="Chain5" parent="Chains" instance=ExtResource("6_wpdr7")]
 position = Vector2(880, -120)
 
-[node name="Player" parent="." instance=ExtResource("7_jiso0")]
-position = Vector2(664, -16)
+[node name="Smite" parent="." instance=ExtResource("11_mebpc")]
+position = Vector2(488, -64)
 
-[node name="Camera2D2" type="Camera2D" parent="Player"]
-position = Vector2(-56, -32)
-zoom = Vector2(0.3, 0.3)
+[node name="Camera2D2" type="Camera2D" parent="." node_paths=PackedStringArray("Player")]
+position = Vector2(552, -80)
+zoom = Vector2(0.5, 0.5)
 limit_left = -250
 limit_right = 1200
 position_smoothing_speed = 4.0
@@ -419,6 +420,11 @@ drag_vertical_enabled = true
 drag_left_margin = 0.5
 drag_top_margin = 0.5
 drag_right_margin = 0.5
+script = ExtResource("9_22ly6")
+Player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("7_jiso0")]
+position = Vector2(664, -16)
 
 [node name="001" parent="." instance=ExtResource("7_nf8w6")]
 position = Vector2(30, -8)
@@ -427,8 +433,11 @@ platform_floor_layers = 4294967293
 [node name="002" parent="." instance=ExtResource("7_nf8w6")]
 position = Vector2(136, -8)
 
-[node name="Smit" parent="." instance=ExtResource("10_0rsjy")]
-position = Vector2(456, -104)
+[node name="Smite2" parent="." instance=ExtResource("11_mebpc")]
+position = Vector2(1032, -112)
 
-[node name="Glow" parent="." instance=ExtResource("10_0rsjy")]
-position = Vector2(440, -56)
+[node name="Smite3" parent="." instance=ExtResource("11_mebpc")]
+position = Vector2(1136, -40)
+
+[node name="Smite4" parent="." instance=ExtResource("11_mebpc")]
+position = Vector2(832, -64)

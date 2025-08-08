@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://drgm8l7l8ub12"]
+
+[ext_resource type="Script" uid="uid://dw3h7g8exj61n" path="res://Engien/UI/ui.gd" id="1_fhk8x"]
+[ext_resource type="Texture2D" uid="uid://18qnpbluwyb0" path="res://Player/Book/Assists/Book mark.png" id="1_xjg36"]
+[ext_resource type="PackedScene" uid="uid://hi2wt780njq7" path="res://Engien/UI/spell_slot.tscn" id="2_lbuyr"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_od8f5"]
+polygon = PackedVector2Array(232, 208, 480, 208, 480, 248, 232, 248, 273, 228)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_fhk8x")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_od8f5")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -62.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_xjg36")
+region_rect = Rect2(0, 179, 128, 25)
+
+[node name="Spell slot" parent="." instance=ExtResource("2_lbuyr")]
+position = Vector2(401, 229)
+
+[node name="Spell slot2" parent="." instance=ExtResource("2_lbuyr")]
+position = Vector2(347, 229)
+
+[node name="Spell slot3" parent="." instance=ExtResource("2_lbuyr")]
+position = Vector2(293, 229)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -249.0
+offset_top = -62.0
+offset_right = -57.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_xjg36")
+region_rect = Rect2(0, 51, 128, 25)

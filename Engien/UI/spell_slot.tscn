@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://hi2wt780njq7"]
+
+[ext_resource type="Texture2D" uid="uid://c3a50wyd0nikj" path="res://Engien/Spells/Icons/Textures/paper.png" id="1_8rtqf"]
+[ext_resource type="Script" uid="uid://cki8ahb0s6kgr" path="res://Engien/UI/spell_slot.gd" id="1_rhgcb"]
+
+[node name="Spell slot" type="Node2D"]
+script = ExtResource("1_rhgcb")
+
+[node name="Paper" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_8rtqf")
+
+[node name="Spell" type="Sprite2D" parent="."]

@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("4_f0fgb")
-Name = "Smit"
+Name = "Smite"
 icon = ExtResource("3_cvbku")
 Damage = 50
 damage_Type = Array[ExtResource("1_2kjul")]([ExtResource("2_46inp")])

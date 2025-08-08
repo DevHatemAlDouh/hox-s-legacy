@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://c58avyihu5af"]
+[gd_scene load_steps=8 format=3 uid="uid://c58avyihu5af"]
 
 [ext_resource type="Script" uid="uid://cuwfqe48prejm" path="res://Engien/Partecals/Scenes/Glow.gd" id="1_0hvdh"]
 [ext_resource type="Texture2D" uid="uid://v4vqsxj5ijaj" path="res://Engien/Partecals/Texture/Twincilng.png" id="2_i3lhl"]
 
 [sub_resource type="Gradient" id="Gradient_f17vg"]
-offsets = PackedFloat32Array(0, 0.306667)
-colors = PackedColorArray(1, 1, 0, 0.745098, 1, 1, 0.666667, 0.160784)
+offsets = PackedFloat32Array(0, 0.3)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.345098)
+
+[sub_resource type="Gradient" id="Gradient_v72vg"]
+offsets = PackedFloat32Array(0, 0.926667)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.278431)
 
 [sub_resource type="Animation" id="Animation_0hvdh"]
 length = 0.001
@@ -105,6 +109,7 @@ gravity = Vector2(0, 2)
 scale_amount_min = 0.01
 scale_amount_max = 0.2
 color_ramp = SubResource("Gradient_f17vg")
+color_initial_ramp = SubResource("Gradient_v72vg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
