@@ -4,7 +4,7 @@ extends Control
 const SPRITE_SIZE = Vector2(32,32)
 
 @export var BG_Color: Color
-@export var iner_Color:Color		
+@export var iner_Color:Color
 
 @export var outer_radius:int = 256
 @export var inner_radius:int = 64
@@ -35,7 +35,7 @@ func _draw() -> void:
 		var start_rads = (TAU * i-1)/ len(Options)
 		var end_rads = (TAU * i)/ len(Options)
 		var min_rads = (start_rads + end_rads)/.4 * -1
-		var radius_min = (inner_radius + outer_radius) - 75
+		var radius_min = (inner_radius + outer_radius) - 60
 		
 		var draw_pos = radius_min * Vector2.from_angle(min_rads) + offset
 		var texture_to_apply: Texture2D = Options[i].get_Icon()

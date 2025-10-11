@@ -1,35 +1,297 @@
-[gd_scene load_steps=12 format=3 uid="uid://boan55xogjeoj"]
+[gd_scene load_steps=40 format=3 uid="uid://boan55xogjeoj"]
 
 [ext_resource type="Script" uid="uid://bid8c0nhoouan" path="res://Enemies/001/001.gd" id="1_15y8m"]
 [ext_resource type="Script" uid="uid://tscn7y28rhmh" path="res://Components/health.gd" id="2_ttk1f"]
-[ext_resource type="Texture2D" uid="uid://5cv6mih5svuo" path="res://Enemies/001/Assists/001Idel.png" id="3_weupa"]
+[ext_resource type="Texture2D" uid="uid://bjw5f7if1xoi3" path="res://Enemies/001/Assists/Ginger_atففtacking.png" id="3_6sfoo"]
+[ext_resource type="Texture2D" uid="uid://dors8857hat3n" path="res://Enemies/001/Assists/Ginger.png" id="3_weupa"]
+[ext_resource type="Texture2D" uid="uid://hvpdymkv6kth" path="res://Enemies/001/Assists/Ginger_attack.png" id="4_g54m0"]
 [ext_resource type="Script" uid="uid://o0og1idrbini" path="res://Components/hitbox.gd" id="4_q7co2"]
 [ext_resource type="Script" uid="uid://dt2xrxrn812gc" path="res://Components/hurtbox.gd" id="5_8e7xt"]
 [ext_resource type="PackedScene" uid="uid://b4pfyhjrryyy1" path="res://Components/target.tscn" id="5_ggo1v"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6sfoo"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g54m0"]
+animation = &"CHASE"
+use_custom_timeline = true
+timeline_length = 1.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvjwg"]
+animation = &"Cange_State"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uasok"]
+animation = &"Cange_State"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b25p1"]
+animation = &"WANDER"
+use_custom_timeline = true
+timeline_length = 1.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qqi8t"]
+advance_mode = 2
+advance_condition = &"Wandering"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y2ski"]
+advance_mode = 2
+advance_condition = &"Palyer_in_rang"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wnqk1"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yedif"]
+advance_mode = 2
+advance_condition = &"Player_out_rang"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n526q"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pkf55"]
+states/CHASE/node = SubResource("AnimationNodeAnimation_g54m0")
+states/CHASE/position = Vector2(742.5, 98.7656)
+states/Start/position = Vector2(199.5, 99.3828)
+states/To_Chast/node = SubResource("AnimationNodeAnimation_nvjwg")
+states/To_Chast/position = Vector2(538, 42.9375)
+states/To_wander/node = SubResource("AnimationNodeAnimation_uasok")
+states/To_wander/position = Vector2(537.5, 162)
+states/WANDER/node = SubResource("AnimationNodeAnimation_b25p1")
+states/WANDER/position = Vector2(345, 97.5313)
+transitions = ["Start", "WANDER", SubResource("AnimationNodeStateMachineTransition_qqi8t"), "WANDER", "To_Chast", SubResource("AnimationNodeStateMachineTransition_y2ski"), "To_Chast", "CHASE", SubResource("AnimationNodeStateMachineTransition_wnqk1"), "CHASE", "To_wander", SubResource("AnimationNodeStateMachineTransition_yedif"), "To_wander", "WANDER", SubResource("AnimationNodeStateMachineTransition_n526q")]
+graph_offset = Vector2(147, -27)
+
+[sub_resource type="Animation" id="Animation_g54m0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CHASE"]
+}
+
+[sub_resource type="Animation" id="Animation_6sfoo"]
+resource_name = "WANDER"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"WANDER"]
+}
+
+[sub_resource type="Animation" id="Animation_nvjwg"]
+resource_name = "CHASE"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CHASE"]
+}
+
+[sub_resource type="Animation" id="Animation_uasok"]
+resource_name = "Cange_State"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Cange state"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nvjwg"]
+_data = {
+&"CHASE": SubResource("Animation_nvjwg"),
+&"Cange_State": SubResource("Animation_uasok"),
+&"RESET": SubResource("Animation_g54m0"),
+&"WANDER": SubResource("Animation_6sfoo")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g54m0"]
+atlas = ExtResource("3_6sfoo")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvjwg"]
+atlas = ExtResource("3_6sfoo")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnqk1"]
+atlas = ExtResource("3_6sfoo")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yedif"]
+atlas = ExtResource("3_6sfoo")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n526q"]
+atlas = ExtResource("4_g54m0")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkf55"]
+atlas = ExtResource("4_g54m0")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpfjj"]
+atlas = ExtResource("4_g54m0")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1q25j"]
+atlas = ExtResource("4_g54m0")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uasok"]
 atlas = ExtResource("3_weupa")
 region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b25p1"]
+atlas = ExtResource("3_weupa")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqi8t"]
+atlas = ExtResource("3_weupa")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2ski"]
+atlas = ExtResource("3_weupa")
+region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqh5r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6sfoo")
+"texture": SubResource("AtlasTexture_g54m0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvjwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnqk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yedif")
+}],
+"loop": false,
+"name": &"CHASE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n526q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkf55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpfjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1q25j")
 }],
 "loop": true,
-"name": &"Idel",
+"name": &"Cange state",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uasok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b25p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqi8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2ski")
+}],
+"loop": false,
+"name": &"WANDER",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rdj47"]
-size = Vector2(9, 101)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wihi"]
-size = Vector2(48, 102)
+size = Vector2(40, 72)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwhp1"]
-size = Vector2(48, 102)
+size = Vector2(40, 72)
 
 [node name="001" type="CharacterBody2D" node_paths=PackedStringArray("Target") groups=["Enemys"]]
 collision_layer = 4
@@ -41,10 +303,24 @@ Target = NodePath("Target")
 script = ExtResource("2_ttk1f")
 max_health = 1500
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+tree_root = SubResource("AnimationNodeStateMachine_pkf55")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/Palyer_in_rang = false
+parameters/conditions/Player_out_rang = false
+parameters/conditions/Wandering = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_nvjwg")
+}
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_eqh5r")
-animation = &"Idel"
+animation = &"CHASE"
 
 [node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
 position = Vector2(0, 64)
@@ -53,7 +329,7 @@ script = ExtResource("4_q7co2")
 damage = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
-position = Vector2(24, -51)
+position = Vector2(20, -68)
 shape = SubResource("RectangleShape2D_rdj47")
 debug_color = Color(1, 1, 1, 0.42)
 
@@ -64,7 +340,7 @@ script = ExtResource("5_8e7xt")
 health = NodePath("../../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HurtBox"]
-position = Vector2(0, 13)
+position = Vector2(-4, 12)
 shape = SubResource("RectangleShape2D_0wihi")
 debug_color = Color(1, 0, 0, 0.419608)
 
@@ -75,11 +351,11 @@ collision_mask = 2
 [node name="Ground_detector" type="Node2D" parent="AnimatedSprite2D"]
 
 [node name="RayCast2D2" type="RayCast2D" parent="AnimatedSprite2D/Ground_detector"]
-position = Vector2(0, 64)
+position = Vector2(-8, 48)
 target_position = Vector2(0, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -51)
+position = Vector2(-4, -52)
 shape = SubResource("RectangleShape2D_mwhp1")
 
 [node name="Timer" type="Timer" parent="."]
