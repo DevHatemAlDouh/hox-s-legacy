@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bueo5tjoou4d2"
-path="res://.godot/imported/Sprite-0002.jpg-b47ba7b75a6bf6875bfbe16b0b29b17a.ctex"
+uid="uid://cn2dd0w7k3wbo"
+path="res://.godot/imported/Flask.png-7812ea83edd6615a608d8b37924010c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/Bosses/Sprite-0002.jpg"
-dest_files=["res://.godot/imported/Sprite-0002.jpg-b47ba7b75a6bf6875bfbe16b0b29b17a.ctex"]
+source_file="res://Player/Flask/Flask.png"
+dest_files=["res://.godot/imported/Flask.png-7812ea83edd6615a608d8b37924010c3.ctex"]
 
 [params]
 
