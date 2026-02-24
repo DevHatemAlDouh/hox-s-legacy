@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dy4cn4ks130xx"]
+[gd_scene load_steps=10 format=3 uid="uid://dy4cn4ks130xx"]
 
 [ext_resource type="Script" uid="uid://c4jrxme1pd4r1" path="res://Engien/UI/Spell_control.gd" id="1_wtfq7"]
 [ext_resource type="Script" uid="uid://d0ciif7c8i87t" path="res://Engien/Spells/Spell.gd" id="2_kvj5y"]
 [ext_resource type="Script" uid="uid://b6apoic0wgkf7" path="res://Engien/Damage/Damage_Types.gd" id="3_20uyx"]
+[ext_resource type="Texture2D" uid="uid://xi1yitagsl1i" path="res://Player/Book/Assists/Cliek.png" id="4_56nq7"]
+[ext_resource type="Texture2D" uid="uid://dsg6gj8bmyaso" path="res://Player/Book/Assists/E.png" id="5_a4i26"]
+[ext_resource type="Texture2D" uid="uid://tsuhs04gqaml" path="res://Player/Book/Assists/Q.png" id="6_aow64"]
 
 [sub_resource type="Resource" id="Resource_3e8jv"]
 script = ExtResource("2_kvj5y")
@@ -26,6 +29,7 @@ damage_Type = Array[ExtResource("3_20uyx")]([])
 metadata/_custom_type_script = "uid://d0ciif7c8i87t"
 
 [node name="Spells_Minu" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -35,8 +39,44 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wtfq7")
-BG_Color = Color(0.352941, 0.352941, 0.352941, 0.615686)
+BG_Color = Color(0.34963, 0.357504, 0.328831, 0.615686)
 iner_Color = Color(0.922, 0.922, 0.922, 1)
 outer_radius = 96
 inner_radius = 28
 Options = Array[ExtResource("2_kvj5y")]([SubResource("Resource_3e8jv"), SubResource("Resource_4hrda"), SubResource("Resource_56nq7")])
+
+[node name="Spell 3" type="Area2D" parent="."]
+rotation = -2.1293
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spell 3"]
+polygon = PackedVector2Array(-15, 24, -49.3226, 82.2209, -41, 87, -33, 90, -25, 92, -13, 95, 2, 96, 23, 94, 39, 88, 49, 82, 61, 74, 70, 66, 80, 54, 91, 29, 96, 11, 96.3491, 2.61719, 28.263, 1.48386, 26.7988, 9.15564, 22, 18, 14, 24, 5, 27, -6.02059, 27.2449)
+
+[node name="Spell 2" type="Area2D" parent="."]
+rotation = -4.20624
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spell 2"]
+polygon = PackedVector2Array(-15, 24, -49.3226, 82.2209, -41, 87, -33, 90, -25, 92, -13, 95, 2, 96, 23, 94, 39, 88, 49, 82, 61, 74, 70, 66, 80, 54, 91, 29, 96, 11, 96.3491, 2.61719, 28.263, 1.48386, 26.7988, 9.15564, 22, 18, 14, 24, 5, 27, -6.02059, 27.2449)
+
+[node name="Spell 1" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spell 1"]
+polygon = PackedVector2Array(-15, 24, -49, 83, -41, 87, -33, 90, -25, 92, -13, 95, 2, 96, 23, 94, 39, 88, 49, 82, 61, 74, 70, 66, 80, 54, 91, 29, 96, 11, 96, 0, 28, -1, 27.0292, 7.12998, 22, 18, 14, 24, 5, 27, -6.02059, 27.2449)
+
+[node name="Cliek" type="Sprite2D" parent="."]
+position = Vector2(17, 24)
+texture = ExtResource("4_56nq7")
+
+[node name="E" type="Sprite2D" parent="."]
+position = Vector2(-30, 4)
+texture = ExtResource("5_a4i26")
+
+[node name="Q" type="Sprite2D" parent="."]
+position = Vector2(13, -24)
+texture = ExtResource("6_aow64")
+
+[connection signal="mouse_entered" from="Spell 3" to="." method="_on_spell_3_mouse_entered"]
+[connection signal="mouse_exited" from="Spell 3" to="." method="_on_spell_3_mouse_exited"]
+[connection signal="mouse_entered" from="Spell 2" to="." method="_on_spell_2_mouse_entered"]
+[connection signal="mouse_exited" from="Spell 2" to="." method="_on_spell_2_mouse_exited"]
+[connection signal="mouse_entered" from="Spell 1" to="." method="_on_spell_1_mouse_entered"]
+[connection signal="mouse_exited" from="Spell 1" to="." method="_on_spell_1_mouse_exited"]

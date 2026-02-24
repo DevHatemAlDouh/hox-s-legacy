@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg57eb433pft2"]
+
+[ext_resource type="Texture2D" uid="uid://bt7bvgv066ggg" path="res://World/Assists/0001.png" id="1_8uh7m"]
+[ext_resource type="Texture2D" uid="uid://dj60jkqj4qdeo" path="res://World/Drow/Normal map/Normal wall.jpg" id="2_6uqi0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8uh7m"]
+diffuse_texture = ExtResource("1_8uh7m")
+normal_texture = ExtResource("2_6uqi0")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CanvasTexture_8uh7m")

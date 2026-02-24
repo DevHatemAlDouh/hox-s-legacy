@@ -17,7 +17,7 @@ fill_to = Vector2(0.8, 0.2)
 metadata/_snap_enabled = true
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0qqr1"]
-polygon = PackedVector2Array(-24, -64, -5, -11, 5, -11, 24, -64)
+polygon = PackedVector2Array(-20.4011, -64, -5, -11, 5, -11, 20.4011, -64)
 
 [sub_resource type="Animation" id="Animation_nqdoi"]
 loop_mode = 1
@@ -56,13 +56,14 @@ _data = {
 script = ExtResource("1_q6nn8")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.145098, 1, 1, 0.407843)
+color = Color(1, 1, 1, 0.6)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_kb7kp")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 occluder = SubResource("OccluderPolygon2D_0qqr1")
+sdf_collision = false
 
 [node name="Lantern2" type="Sprite2D" parent="."]
 texture = ExtResource("1_0oeun")

@@ -38,8 +38,8 @@ texture_mode = 2
 [node name="Line2D3" type="Line2D" parent="."]
 self_modulate = Color(0.999195, 0.78813, 0.753181, 1)
 material = SubResource("ShaderMaterial_dt4h3")
-position = Vector2(24, -112)
-points = PackedVector2Array(160, -8, 182, 126, 112, 216, 134, 286)
+position = Vector2(24, -104)
+points = PackedVector2Array(160, -8, 182, 126, 112, 216, 136, 272)
 width = 50.0
 texture_mode = 2
 

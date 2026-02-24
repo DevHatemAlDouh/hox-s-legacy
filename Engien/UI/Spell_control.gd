@@ -3,6 +3,10 @@ extends Control
 
 const SPRITE_SIZE = Vector2(32,32)
 
+var forth_spell :Spell
+
+var selected_spell : int = 3
+
 @export var BG_Color: Color
 @export var iner_Color:Color
 
@@ -47,6 +51,13 @@ func _draw() -> void:
 				)
 func _process(delta: float) -> void:
 	queue_redraw()
+	if Spells.size() > 3:
+		if !$".".is_visible_in_tree():
+			selected_spell = 3
+		elif $".".is_visible_in_tree() && Input.is_action_just_pressed("attack"):
+			Options[selected_spell] = forth_spell
+			Spells[selected_spell] = forth_spell
+			Spells.pop_back()
 
 func ADD(spell):
 	Spells.append(spell)
@@ -55,6 +66,37 @@ func ADD(spell):
 			Options.pop_at(i)
 			Options.insert(i,spell)
 			break
-	
+		if i == len(Options)-1:
+			forth_spell = spell
+			$".".show()
+
+
 func Size():
 	return Spells.size()
+
+
+func _on_spell_3_mouse_entered() -> void:
+	$"Spell 3/CollisionPolygon2D".scale = Vector2(1.1,1)
+	selected_spell = 2
+
+
+func _on_spell_3_mouse_exited() -> void:
+	$"Spell 3/CollisionPolygon2D".scale = Vector2(1,1)
+
+
+func _on_spell_2_mouse_entered() -> void:
+	$"Spell 2/CollisionPolygon2D".scale = Vector2(1.1,1)
+	selected_spell = 1
+
+
+func _on_spell_2_mouse_exited() -> void:
+	$"Spell 2/CollisionPolygon2D".scale = Vector2(1,1)
+
+
+func _on_spell_1_mouse_entered() -> void:
+	$"Spell 1/CollisionPolygon2D".scale = Vector2(1.1,1)
+	selected_spell = 0
+
+
+func _on_spell_1_mouse_exited() -> void:
+	$"Spell 1/CollisionPolygon2D".scale = Vector2(1,1)

@@ -11,7 +11,8 @@ const JUMP_VELOCITY_LOW = -100.0
 @export var Footsteps_VFX :AudioStreamPlayer2D
 @export var land :RayCast2D
 @export var UI : CanvasLayer
-@export var Spell_Minu :Control
+@export var Spell_Minu : Control
+var Flask 
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var delta_time: float = 0.0
@@ -48,32 +49,32 @@ var currnt_state = Player_States.IDEL
 
 func Update_Animation_Parameters():
 	if currnt_state == Player_States.DEATH:
-		$Label.text = "DEATH"
+		$Status.text = "DEATH"
 		animations["parameters/conditions/Is_Moving"] = false
 		animations["parameters/conditions/Idel"] = false
 		animations["parameters/conditions/Death"] = true
 	else:
 		if currnt_state == Player_States.IDEL:
-			$Label.text = "IDEL"
+			$Status.text = "IDEL"
 			animations["parameters/conditions/Fall"] = false
 			animations["parameters/conditions/Idel"] = true
 			animations["parameters/conditions/Is_Moving"] = false
 		if currnt_state == Player_States.WALKS :
-			$Label.text = "WALKS"
+			$Status.text = "WALKS"
 			animations["parameters/conditions/Fall"] = false
 			animations["parameters/conditions/Idel"] = false
 			animations["parameters/conditions/Is_Moving"] = true
 		if currnt_state == Player_States.JUMPS:
-			$Label.text = "JUMPS"
+			$Status.text = "JUMPS"
 			animations["parameters/conditions/Idel"] = false
 			animations["parameters/conditions/Is_Moving"] = false
 			animations["parameters/conditions/Jump"] = true
 		if currnt_state == Player_States.FALLING:
-			$Label.text = "FALLING"
+			$Status.text = "FALLING"
 			animations["parameters/conditions/Jump"] = false
 			animations["parameters/conditions/Fall"] = true
 		if currnt_state == Player_States.LANDING:
-			$Label.text = "LANDING"
+			$Status.text = "LANDING"
 			animations["parameters/conditions/Fall"] = false
 			animations["parameters/conditions/Land"] = true
 
@@ -82,9 +83,11 @@ func handle_gravity(delta: float) -> void:
 
 func handle_book_placement(placement:bool):
 	if placement:
-		BOOK.position = Vector2(-33,-86)
+		BOOK.position = Vector2(-40,-80)
+		BOOK.find_child("AnimatedSprite2D").flip_h = placement
 	else :
-		BOOK.position = Vector2(33,-86)
+		BOOK.position = Vector2(40,-80)
+		BOOK.find_child("AnimatedSprite2D").flip_h = placement
 
 func VFX():
 	if currnt_state == Player_States.IDEL:
@@ -92,6 +95,11 @@ func VFX():
 	if currnt_state == Player_States.WALKS:
 		if !Footsteps_VFX.playing:
 			Footsteps_VFX.play()
+
+func Use_Flask():
+	if Input.is_action_just_pressed("Use Flask"):
+		Flask = UI.get_child(3).get_child(0).Use()
+
 
 func Spell_minu():
 	if Input.is_action_just_pressed("Spells"):
@@ -141,8 +149,10 @@ func _physics_process(delta: float) -> void:
 	delta_time = delta
 	if DEATH:
 		currnt_state = Player_States.DEATH
+	render_spells()
 	Update_Animation_Parameters()
 	VFX()
+	Use_Flask()
 	Spell_minu()
 	CombatMode = all_enemys_that_can_by_targeted.size() > 0
 	target(CombatMode)
@@ -191,5 +201,8 @@ func _on_itemditction_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Spells"):
 		var Spellinfo = area.get_Info()
 		Spell_Minu.ADD(Spellinfo)
-		UI.spell_slots(Spellinfo.get_Icon(),Spell_Minu.Size())
 		area.queue_free()
+
+func render_spells():
+	for i in Spell_Minu.Size():
+		UI.spell_slots(Spell_Minu.Spells[i].get_Icon(),i+1)

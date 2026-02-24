@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8dqwhru7mtsq"]
+
+[ext_resource type="Texture2D" uid="uid://dhnnw3h8s3niv" path="res://Enemies/Bosses/Sprite-0002.png" id="1_d0jjy"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_d0jjy"]
+diffuse_texture = ExtResource("1_d0jjy")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d0jjy"]
+radius = 40.0
+height = 112.0
+
+[node name="Blom nigth" type="CharacterBody2D"]
+
+[node name="Sprite-0002" type="Sprite2D" parent="."]
+position = Vector2(0, -144)
+texture = SubResource("CanvasTexture_d0jjy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -40)
+shape = SubResource("CapsuleShape2D_d0jjy")

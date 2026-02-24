@@ -1,5 +1,6 @@
-[gd_scene load_steps=34 format=3 uid="uid://eofi14g8wd8b"]
+[gd_scene load_steps=36 format=3 uid="uid://eofi14g8wd8b"]
 
+[ext_resource type="Script" uid="uid://bc3v0b7pp7b6g" path="res://Player/Flask/flask.gd" id="1_3ul2t"]
 [ext_resource type="Texture2D" uid="uid://c6ti6b8lscl22" path="res://Player/Flask/Fluid.png" id="1_w85de"]
 [ext_resource type="Texture2D" uid="uid://cn2dd0w7k3wbo" path="res://Player/Flask/Flask.png" id="2_tt5wr"]
 
@@ -143,6 +144,33 @@ tracks/1/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_32wlk"]
+resource_name = "Empty"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fluid:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flask:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
 [sub_resource type="Animation" id="Animation_gp234"]
 resource_name = "Fill"
 tracks/0/type = "value"
@@ -164,10 +192,10 @@ tracks/1/path = NodePath("Flask:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.266667, 0.533333, 0.766667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 2, 1, 2, 3, 2, 1, 0]
+"values": [4, 3, 2, 1, 0]
 }
 
 [sub_resource type="Animation" id="Animation_tt5wr"]
@@ -204,6 +232,7 @@ _data = {
 &"2": SubResource("Animation_wqxpe"),
 &"3": SubResource("Animation_qoqmg"),
 &"4": SubResource("Animation_84ese"),
+&"Empty": SubResource("Animation_32wlk"),
 &"Fill": SubResource("Animation_gp234"),
 &"RESET": SubResource("Animation_tt5wr")
 }
@@ -371,7 +400,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Flask" type="Node2D"]
+[node name="Flask" type="Control" node_paths=PackedStringArray("animations")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3ul2t")
+animations = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
