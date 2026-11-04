@@ -95,4 +95,4 @@ Contributions, feedback, and bug reports are welcome. For changes, please open a
 - **GitHub:** [@DevHatemAlDouh](https://github.com/DevHatemAlDouh)
 - **Repository:** [DevHatemAlDouh/hox-s-legacy](https://github.com/DevHatemAlDouh/hox-s-legacy)
 
-<!-- {use profolio} -->
+<!-- {use profolio game} -->
